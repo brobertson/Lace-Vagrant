@@ -94,7 +94,7 @@ echo "now correct the address of the Lace directory"
 sudo sed -i.bak 's/\/home\/brucerob\/SecretLace\/Lace/\/home\/vagrant\/Lace/' lace.wsgi
 rm lace.wsgi.bak
 echo "now set up the Apache WSGI service"
-cp /vagrant/000-default.conf /etc/apache2/sites-available/
+cp /vagrant/Apache/000-default.conf /etc/apache2/sites-available/
 echo "reload apache2"
 sudo service apache2 reload
 
