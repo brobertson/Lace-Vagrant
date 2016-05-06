@@ -1,5 +1,6 @@
 # Lace-Vagrant
-Vagrant provisioning for a Lace editing environment
+Vagrant provisioning for a [Lace](https://github.com/brobertson/Lace)  editing environment
+
 ##Quick Start
 - `cd Lace-Vagrant`
 - `vagrant box add ubuntu/trusty64`
@@ -12,5 +13,6 @@ Vagrant provisioning for a Lace editing environment
 - Change username and password:
 `vim Lace/authentication.py`
 - Change line reading `return username == 'admin' and password == 'secret'`
+
 
 

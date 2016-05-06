@@ -118,3 +118,9 @@ echo 'var exist_server_address = "http://localhost:8899";' > /home/vagrant/Lace/
 echo "now preprocess all the hocr files in database"
 cd /home/vagrant/eXist-db
 bin/client.sh -s -u admin -P foo -x -F /home/vagrant/Lace/eXist-db/db/apps/laceApp/addManuallyVerifiedAttr.xq
+
+echo "now modifying ~/.bash_profile"
+echo "export EXIST_HOME='/home/vagrant/eXist-db'" >> /home/vagrant/.bash_profile
+echo "export LACE_HOME='/home/vagrant/Lace'" >> /home/vagrant/.bash_profile
+#echo "now keeping env. variable EXIST_HOME when using sudo"
+#echo 'Defaults env_keep += "EXIST_HOME"' >> /etc/sudoers
