@@ -26,6 +26,7 @@ pip install Flask
 pip install Flask-SQLAlchemy
 pip install Flask-Markdown
 pip install MySQL-python
+pip install Flask-HTTPAuth
 #sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
 sudo apt-get -y -q install python-imaging 
 sudo apt-get -y -q install python-lxml 
@@ -44,6 +45,8 @@ echo "now set actual settings for Lace"
 #cp example_local_settings.py local_settings.py
 echo "database_uri = 'sqlite:////home/vagrant/Lace/lace_sqlite.db'" > local_settings.py
 echo 'exist_db_uri = "http://localhost:8080/exist/"' >> local_settings.py
+#generate a random key for the digest authentication
+echo http_auth_secret_key = "`date +%s | sha256sum | base64 | head -c 12`" >> local_settings.py 
 python import_to_lace_from_tar.py samples/*
 cd -
 
