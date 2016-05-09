@@ -46,7 +46,8 @@ echo "now set actual settings for Lace"
 echo "database_uri = 'sqlite:////home/vagrant/Lace/lace_sqlite.db'" > local_settings.py
 echo 'exist_db_uri = "http://localhost:8080/exist/"' >> local_settings.py
 #generate a random key for the digest authentication
-echo http_auth_secret_key = "`date +%s | sha256sum | base64 | head -c 12`" >> local_settings.py 
+#currently not using digest authentication, but we'll keep this here for when we do
+#echo http_auth_secret_key = \"`date +%s | sha256sum | base64 | head -c 12`\" >> local_settings.py 
 python import_to_lace_from_tar.py samples/*
 cd -
 
