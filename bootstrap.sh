@@ -34,11 +34,11 @@ sudo apt-get -y -q install python-lxml
 #git clone git@github.com:brobertson/Lace.git
 
 echo  "Now getting Lace"
-wget https://github.com/brobertson/Lace/archive/secretlace.zip
-unzip secretlace.zip
-rm secretlace.zip
+wget https://github.com/brobertson/Lace/archive/master.zip
+unzip master.zip
+rm master.zip
 mv Lace* Lace
-chown -R vagrant:vagrant Lace-secretlace/
+chown -R vagrant:vagrant Lace/
 cd Lace
 
 echo "now set actual settings for Lace"
