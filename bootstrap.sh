@@ -14,12 +14,8 @@ echo "Now installing java"
 apt-get -y -q install software-properties-common htop
 add-apt-repository ppa:webupd8team/java
 apt-get -y -q update
-#echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
-echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
-#apt-get -y -q install oracle-java8-installer
-apt-get -y -q install oracle-java7-installer
-update-java-alternatives -s java-7-oracle
-
+echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+apt-get -y -q install oracle-java8-installer
 echo "Now installing requirements for Lace"
 apt-get -y -q install zip unzip libmysqlclient-dev python-pip python-dev sqlite3
 pip install Flask
