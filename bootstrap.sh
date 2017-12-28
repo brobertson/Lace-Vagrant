@@ -103,6 +103,8 @@ apt-get -y -q install ant
 ant -f /home/vagrant/Lace/eXist-db/ant/adduser.xml -Dpath=/home/vagrant/eXist-db -Dlogin=laceUser -Dsecret=laceUser -Duser.group=laceUser -Droot.login=admin -Droot.password=foo -Dexist.uri=localhost:8080 addUser
 echo "put the xquery application files in eXist"
 /home/vagrant/eXist-db/bin/client.sh -u admin -P foo -s -c /db/ -p /home/vagrant/Lace/eXist-db/db/
+#ok, I really don't know why this isn't the proper command. Perhaps the syntax changed between versions of eXist
+#sudo /home/pi/eXist/bin/client.sh -u admin -P foo -s -d  -p /home/pi/Lace/eXist-db/db/ -m /db/
 echo "modify permissions of applications"
 cd /home/vagrant/Lace/eXist-db/db/apps/laceApp
 #echo 'declare namespace xmldb = "http://exist-db.org/xquery/xmldb";' > /home/vagrant/try.xq
