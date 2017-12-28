@@ -3,7 +3,7 @@ Vagrant provisioning for a [Lace](https://github.com/brobertson/Lace)  editing e
 
 ## Quick Start
 - `cd Lace-Vagrant`
-- `vagrant box add ubuntu/trusty64`(If this doesn't work, check vagrant -v: is it => 1.9?)
+- `vagrant box add bento/ubuntu-16.04`(If this doesn't work, check vagrant -v: is it => 1.9?)
 - `vagrant up`
 - Reach your Lace editor at [http://localhost:8135](http://localhost:8135)
 
