@@ -51,14 +51,14 @@ echo "Now getting misc"
 apt-get -y -q install lynx-cur
 
 echo "now getting eXist-db"
-wget https://bintray.com/artifact/download/existdb/releases/eXist-db-setup-2.2.jar
+wget https://bintray.com/existdb/releases/download_file?file_path=eXist-db-setup-3.6.0.jar 
 sudo apt-get -y -q install expect 
-
+mv *jar eXist-db-setup-3.6.0.jar
 echo "now run an expect script to install eXist-db"
 /usr/bin/expect <<- 'EOD'
 
 set timeout 200
-spawn /usr/bin/java -jar eXist-db-setup-2.2.jar -console
+spawn /usr/bin/java -jar eXist-db-setup-3.6.0.jar -console
 
 expect "vagrant]"
 send "/home/vagrant/eXist-db\n"
@@ -72,9 +72,9 @@ expect "]"
 send "foo\n"
 expect "foo]"
 send "foo\n"
-expect "1024]"
+expect "2048]"
 send "\n"
-expect "128]"
+expect "256]"
 send "\n"
 expect "redisplay"
 send "1\n"
@@ -83,9 +83,26 @@ expect eof
 EOD
 
 echo "now make eXist a service on boot"
-/home/vagrant/eXist-db/tools/wrapper/bin/exist.sh install
-/home/vagrant/eXist-db/tools/wrapper/bin/exist.sh start
-sleep 10
+#/home/vagrant/eXist-db/tools/wrapper/bin/exist.sh install
+#/home/vagrant/eXist-db/tools/wrapper/bin/exist.sh start
+/usr/bin/expect <<- 'EOD'
+
+set timeout 200
+spawn sudo -E /home/vagrant/eXist-db/tools/yajsw/bin/installDaemon.sh -console
+
+expect "init)?"
+send "Y\n"
+expect "(root)?"
+send "\n"
+expect "(Y/n)?"
+send "Y\n"
+expect "(Y/n)?"
+send "n\n"
+expect eof
+
+EOD
+sudo systemctl start eXist-db
+sleep 100
 
 echo "now make apache2 connection"
 apt-get -y -q install libapache2-mod-wsgi
@@ -102,9 +119,7 @@ echo "make eXist user 'laceuser'"
 apt-get -y -q install ant
 ant -f /home/vagrant/Lace/eXist-db/ant/adduser.xml -Dpath=/home/vagrant/eXist-db -Dlogin=laceUser -Dsecret=laceUser -Duser.group=laceUser -Droot.login=admin -Droot.password=foo -Dexist.uri=localhost:8080 addUser
 echo "put the xquery application files in eXist"
-/home/vagrant/eXist-db/bin/client.sh -u admin -P foo -s -c /db/ -p /home/vagrant/Lace/eXist-db/db/
-#ok, I really don't know why this isn't the proper command. Perhaps the syntax changed between versions of eXist
-#sudo /home/pi/eXist/bin/client.sh -u admin -P foo -s -d  -p /home/pi/Lace/eXist-db/db/ -m /db/
+sudo /home/vagrant/eXist-db/bin/client.sh -u admin -P foo -s -d  -p /home/vagrant/Lace/eXist-db/db/ -m /db/
 echo "modify permissions of applications"
 cd /home/vagrant/Lace/eXist-db/db/apps/laceApp
 #echo 'declare namespace xmldb = "http://exist-db.org/xquery/xmldb";' > /home/vagrant/try.xq
@@ -119,7 +134,7 @@ echo 'var exist_server_address = "http://localhost:8899";' > /home/vagrant/Lace/
 
 echo "now preprocess all the hocr files in database"
 cd /home/vagrant/eXist-db
-bin/client.sh -s -u admin -P foo -x -F /home/vagrant/Lace/eXist-db/db/apps/laceApp/addManuallyVerifiedAttr.xq
+bin/client.sh  -u admin -P foo -s  -F /home/vagrant/Lace/eXist-db/db/apps/laceApp/addManuallyVerifiedAttr.xq
 
 echo "now modifying ~/.bash_profile"
 echo "export EXIST_HOME='/home/vagrant/eXist-db'" >> /home/vagrant/.bash_profile
