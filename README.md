@@ -1,3 +1,8 @@
+# Lace Is Upgraded!
+Lace is now [Lace2](https://github.com/brobertson/Lace2), an eXist-db application. This simplifies building and running 
+the project, so for now at least, Vagrant is not necessary. If testing and evaluation requires a new Vagrant provisioning,
+it will be stored on GitHub as Lace2-Vagrant.
+
 # Lace-Vagrant
 Vagrant provisioning for a [Lace](https://github.com/brobertson/Lace)  editing environment
 
